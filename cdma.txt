@@ -1,0 +1,48 @@
+Cdma
+
+clc
+clear all
+Ad=input('Enter A data : ');
+Bd=input('Enter B data : ');
+Ak=input('Enter key for A : ');
+Bk=input('Enter key for B : ');
+if (Ad == 0)
+ Ad=-1;
+end
+if (Bd == 0)
+ Bd=-1;
+end
+m=length(Ak);
+n=length(Bk);
+for i=1:m
+ if (Ak(i) == 0)
+ Ak(i)=-1;
+ end
+end
+for i=1:n
+ if (Bk(i) == 0)
+ Bk(i)=-1;
+ end
+end
+As=Ad*Ak;
+Bs=Bd*Bk;
+Cs=As+Bs
+a=Cs.*Ak
+b=Cs.*Bk
+m=length(a);
+n=length(b);
+k=0;
+for i=1:m
+ k=k+a(i);
+end
+k
+ c=0;
+for i=1:n
+ c=c+b(i);
+ end
+c
+if (k > c)
+ disp('Since k > c connect Tx A to Rx a')
+else
+ disp('Since k < c connect Tx B to Rx b')
+end

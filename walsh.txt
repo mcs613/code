@@ -1,0 +1,58 @@
+Walsh Code
+
+clc
+clear all
+h=input('Enter the Kernel matrix : ');
+d=input('Enter the square matrix dimension : ');
+H=h;
+D=log2(d);
+for i=1:(D
+-1)
+H1=h(1,1).*H;
+H2=h(1,2).*H;
+H3=h(2,1).*H;
+H4=h(2,2).*H;
+H=[H1 H2;H3 H4];
+end
+H=[H1 H2;H3 H4];
+A=[];B=[];
+for i=1:d
+A = strvcat(A,sprintf('%+5.2g',H(i,:)));
+end
+A;
+[x v]=size(A);
+s=[];b=[];m=4;walsh_code=[];
+for j=1:x
+for i=0:5:(v-1)
+if (i == 0)
+b=[b A(j,m)];
+%b=[b [A(j,(i+1)) blanks(0) A(j,m)]];
+end
+if (i ~= 0) && (m ~= (v-1))
+m=m+5;
+b=[b [A(j,i) blanks(1) A(j,m)]];
+end
+if (m == (v-1))
+b=[b A(j,v)];
+end
+b;
+end
+walsh_code=[walsh_code;b];
+m=4;
+b=[];
+end
+walsh_code;
+[x v]=size(walsh_code);
+final_code=[];final_walsh_codeword=[];
+for i=1:v
+dummy=walsh_code(:,i)';
+dummy=[dummy(1,1:(x/2)) char(45) dummy(1,((x/2)+1):x)];
+final_walsh_codeword(:,i)=dummy';
+end
+final_walsh_codeword=char(final_walsh_codeword);
+[X V]=size(final_walsh_codeword);W=V-1;
+for i=1:X
+final_code=[final_code;[final_walsh_codeword(i,1:(W/2)) blanks(1) char(124) blanks(1)
+final_walsh_codeword(i,((W/2)+2):V)]];
+end
+final_code

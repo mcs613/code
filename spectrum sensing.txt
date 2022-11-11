@@ -1,0 +1,37 @@
+clc;
+clearall;
+closeall;
+u = 1;
+snr_avgdB =0;
+snr_avg = power(10,snr_avgdB/10);
+Base= 0.01:0.02:1;
+Pf =Base.^2;
+for i=1:length(Pf)
+%Threshold
+Th(i) = gaminv(1-Pf(i),u,1)*2;
+pd(i) = marcumq(sqrt(snr_avg*2*u),sqrt(Th(i)),u);
+end
+plot(Pf,pd,'->r','Linewidth',2)
+holdon
+snr_avgdB =3;
+snr_avg = power(10,snr_avgdB/10);
+for i=1:length(Pf)
+%Threshold
+Th1(i) = gaminv(1-Pf(i),u,1)*2;
+pd1(i) = marcumq(sqrt(snr_avg*2*u),sqrt(Th1(i)),u);
+end
+plot(Pf,pd1,'-ob','Linewidth',2)
+holdon
+snr_avgdB =8;
+snr_avg = power(10,snr_avgdB/10);
+for i=1:length(Pf)
+%Threshold
+Th2(i) = gaminv(1-Pf(i),u,1)*2;
+pd2(i) = marcumq(sqrt(snr_avg*2*u),sqrt(Th2(i)),u);
+end
+plot(Pf,pd2,'-*k','Linewidth',2)
+holdon
+xlabel('Probability of False alarm (Pf)');
+ylabel('Probability of detection (Pd)');
+legend ('SNR=0db','SNR=3db','SNR=8db');
+grid on;

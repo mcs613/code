@@ -1,0 +1,20 @@
+******************Cell clustering********************
+
+clear all;
+clc;
+i=input('enter value of i:');
+j=input('enter value of j:');
+R=input('enter value of radius of cell');
+cityarea=input('enter city area');
+N=i^2+i*j+j^2;
+areacell= 2.5981*R^2;
+totalcells=round(cityarea/areacell)
+ch_bw=60*10^3; % channel bandwidth given
+spectr=40*10^6; % spectrumsize given
+totch=round(spectr/ch_bw); % Total channels
+k=round(totch/N)
+M=round(totalcells/N)
+c=M*k*N
+plexp=4; %path loss exponent
+s_i=(((3*N)^0.5)^plexp)/6 % i0 =6 total number of co-channels
+s_idb=10*log10(s_i);
